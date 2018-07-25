@@ -1,25 +1,47 @@
 const initialState = [
     {
-        text: 'Use Redux',
+        id: 0,
+        content: 'Use Redux',
         completed: false,
-        id: 0
+        readOnly: true
     }
 ]
 
-export default function todos(state = initialState, action) {
+const todos = (state = [], action) =>{
     console.log(action)
     switch (action.type) {
         case "ADD_TODO":
             return [
                 ...state,
                 {
-                    id: state.reduce((maxId, todo) => Math.max(todo.id, maxId), -1) + 1,
+                    id: action.id,
+                    content: action.text,
                     completed: false,
-                    text: action.text
+                    readOnly: true
                 }
             ]
+        case 'TOGGLE_TODO':
+            return state.map(todo =>
+                (todo.id === action.id)
+                    ? {...todo, completed: !todo.completed}
+                    : todo
+            )
+        case 'CHANGE_EDIT_STATUS':
+            return state.map(todo =>
+                (todo.id === action.id)
+                    ? {...todo, readOnly: !todo.readOnly}
+                    : todo
+            )
+        case 'CHANGE_INPUT_VALUE':
+            return state.map(todo =>
+                (todo.id === action.id)
+                    ? {...todo, content: action.text}
+                    : todo
+            )
         default:
             return state
 
     }
 }
+
+export default todos
