@@ -22,4 +22,9 @@ export const changeInputValue = (id , text)=> ({
     text
 })
 
+export const searchTodo = ( text)=> ({
+    type: 'SEARCH_TO_DO',
+    text
+})
+
 

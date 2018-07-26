@@ -7,40 +7,55 @@ const initialState = [
     }
 ]
 
-const todo = (state = [], action) =>{
+const todo = (state = { list:[], text:""}, action) =>{
     console.log(action)
     switch (action.type) {
         case "ADD_TODO":
-            return [
+            return {
                 ...state,
-                {
-                    id: action.id,
-                    content: action.text,
-                    completed: false,
-                    readOnly: true
-                }
-            ]
+                list: [
+                    ...state.list,
+                    {
+                        id: action.id,
+                        content: action.text,
+                        completed: false,
+                        readOnly: true
+                    }
+                ]
+            }
         case 'TOGGLE_TODO':
-            return state.map(todo =>
+            return {
+                ...state,
+                list : state.list.map(todo =>
                 (todo.id === action.id)
                     ? {...todo, completed: !todo.completed}
-                    : todo
-            )
+                    : todo)
+            }
         case 'CHANGE_EDIT_STATUS':
-            return state.map(todo =>
+            return {
+                ...state,
+                list : state.list.map(todo =>
                 (todo.id === action.id)
                     ? {...todo, readOnly: !todo.readOnly}
                     : todo
-            )
+                )
+            }
         case 'CHANGE_INPUT_VALUE':
-            return state.map(todo =>
+            return {
+                ...state,
+                list : state.list.map(todo =>
                 (todo.id === action.id)
-                    ? {...todo, content: action.text}
-                    : todo
-            )
+                ? {...todo, content: action.text}
+                : todo
+                )
+            }
+        case 'SEARCH_TO_DO':
+            return {
+                ...state,
+                text : action.text
+            }
         default:
             return state
-
     }
 }
 
