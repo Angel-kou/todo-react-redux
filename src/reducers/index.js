@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux'
-import todos from './todos'
+import todo from './todo'
 import users from './users'
 
 
 const rootReducer = combineReducers({
     users,
-    todos
+    todo
 })
 
 export default rootReducer

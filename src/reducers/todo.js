@@ -7,7 +7,7 @@ const initialState = [
     }
 ]
 
-const todos = (state = [], action) =>{
+const todo = (state = [], action) =>{
     console.log(action)
     switch (action.type) {
         case "ADD_TODO":
@@ -44,4 +44,4 @@ const todos = (state = [], action) =>{
     }
 }
 
-export default todos
+export default todo
